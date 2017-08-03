@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "watch": "babel -w src/ -d dist/",
-    "build": "babel src/ -d dist/",
-    "serve": "babel -w src/ -d dist/ | nodemon --watch dist/index",
+    "build": "babel src/ -d build/",
+    "serve": "babel -w src/ -d dist/ | nodemon --watch dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -15,6 +15,7 @@
     "apollo-server-express": "^1.0.5",
     "body-parser": "^1.17.2",
     "casual": "^1.5.14",
+    "connect": "^3.6.2",
     "express": "^4.15.3",
     "graphql": "^0.10.5",
     "graphql-tools": "^1.1.0"

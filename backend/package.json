@@ -18,6 +18,7 @@
     "casual": "^1.5.14",
     "connect": "^3.6.2",
     "express": "^4.15.3",
+    "express-graphql": "^0.6.7",
     "graphql": "^0.10.5",
     "graphql-tools": "^1.1.0"
   },

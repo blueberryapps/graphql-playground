@@ -7,6 +7,7 @@ import casual from 'casual';
 
 const mocks = {
   String: () => 'It works!',
+  Int: () => 45,
   Query: () => ({
     author: (root, args) => ({ firstName: args.firstName, lastName: args.lastName }),
   }),
@@ -17,7 +18,11 @@ const mocks = {
 
 const typeDefs = `
 type Query {
-  testString: String
+  testString: String,
+  author {
+    firstName: String
+  },
+  number: Int
 }
 `;
 

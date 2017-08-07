@@ -16,6 +16,9 @@ var mocks = {
   String: function String() {
     return 'It works!';
   },
+  Int: function Int() {
+    return 45;
+  },
   Query: function Query() {
     return {
       author: function author(root, args) {
@@ -35,7 +38,7 @@ var mocks = {
   }
 };
 
-var typeDefs = '\ntype Query {\n  testString: String\n}\n';
+var typeDefs = '\ntype Query {\n  testString: String,\n  author {\n    firstName: String\n  },\n  number: Int\n}\n';
 
 var schema = (0, _graphqlTools.makeExecutableSchema)({ typeDefs: typeDefs });
 

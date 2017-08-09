@@ -3,45 +3,15 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.schema = undefined;
 
 var _graphqlTools = require('graphql-tools');
 
-var _casual = require('casual');
+var _resolvers = require('./resolvers');
 
-var _casual2 = _interopRequireDefault(_casual);
+// src/schema.js
+var typeDefs = '\ntype Channel {\n   id: ID!                # "!" denotes a required field\n   name: String\n}\n# This type specifies the entry points into our API. In this case\n# there is only one - "channels" - which returns a list of channels.\ntype Query {\n   channels: [Channel]    # "[]" means this is a list of channels\n}\n\n# The mutation root type, used to define all mutations.\ntype Mutation {\n  # A mutation to add a new channel to the list of channels\n  addChannel(name: String!): Channel\n}\n';
+var schema = (0, _graphqlTools.makeExecutableSchema)({ typeDefs: typeDefs, resolvers: _resolvers.resolvers });
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var mocks = {
-  String: function String() {
-    return 'It works!';
-  },
-  Int: function Int() {
-    return 45;
-  },
-  Query: function Query() {
-    return {
-      author: function author(root, args) {
-        return { firstName: args.firstName, lastName: args.lastName };
-      }
-    };
-  },
-  Author: function Author() {
-    return { firstName: function firstName() {
-        return _casual2.default.first_name;
-      }, lastName: function lastName() {
-        return _casual2.default.last_name;
-      } };
-  },
-  Post: function Post() {
-    return { title: _casual2.default.title, text: _casual2.default.sentences(3) };
-  }
-};
-
-var typeDefs = '\ntype Query {\n  testString: String,\n  author {\n    firstName: String\n  },\n  number: Int\n}\n';
-
-var schema = (0, _graphqlTools.makeExecutableSchema)({ typeDefs: typeDefs });
-
-(0, _graphqlTools.addMockFunctionsToSchema)({ schema: schema, mocks: mocks });
-
-exports.default = schema;
+// addMockFunctionsToSchema({ schema });
+exports.schema = schema;

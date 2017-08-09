@@ -14,9 +14,11 @@ var _expressGraphql2 = _interopRequireDefault(_expressGraphql);
 
 var _apolloServerExpress = require('apollo-server-express');
 
-var _schema = require('./data/schema');
+var _cors = require('cors');
 
-var _schema2 = _interopRequireDefault(_schema);
+var _cors2 = _interopRequireDefault(_cors);
+
+var _schema = require('./data/schema');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24,13 +26,17 @@ var PORT = 9000;
 
 var app = (0, _express2.default)();
 
+app.use('*', (0, _cors2.default)({ origin: 'http://localhost:3000' }));
+
 // bodyParser is needed just for POST.
-app.use('/graphql', _bodyParser2.default.json(), (0, _apolloServerExpress.graphqlExpress)({ schema: _schema2.default }));
+app.use('/graphql', _bodyParser2.default.json(), (0, _apolloServerExpress.graphqlExpress)({ schema: _schema.schema }));
 
 // GraphQL Explorer
 app.use('/graphql-explorer', (0, _expressGraphql2.default)({
-  schema: _schema2.default,
+  schema: _schema.schema,
   graphiql: true
 }));
 
-app.listen(PORT);
+app.listen(PORT, function () {
+  console.log('Server is listening on http://localhost:' + PORT);
+});

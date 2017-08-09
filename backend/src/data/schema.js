@@ -1,33 +1,29 @@
+// src/schema.js
 import {
   makeExecutableSchema,
   addMockFunctionsToSchema,
 } from 'graphql-tools';
 
-import casual from 'casual';
-
-const mocks = {
-  String: () => 'It works!',
-  Int: () => 45,
-  Query: () => ({
-    author: (root, args) => ({ firstName: args.firstName, lastName: args.lastName }),
-  }),
-  Author: () => ({ firstName: () => casual.first_name, lastName: () => casual.last_name }),
-  Post: () => ({ title: casual.title, text: casual.sentences(3) }),
-};
-
+import { resolvers } from './resolvers';
 
 const typeDefs = `
+type Channel {
+   id: ID!                # "!" denotes a required field
+   name: String
+}
+# This type specifies the entry points into our API. In this case
+# there is only one - "channels" - which returns a list of channels.
 type Query {
-  testString: String,
-  author {
-    firstName: String
-  },
-  number: Int
+   channels: [Channel]    # "[]" means this is a list of channels
+}
+
+# The mutation root type, used to define all mutations.
+type Mutation {
+  # A mutation to add a new channel to the list of channels
+  addChannel(name: String!): Channel
 }
 `;
+const schema = makeExecutableSchema({typeDefs, resolvers});
 
-const schema = makeExecutableSchema({ typeDefs });
-
-addMockFunctionsToSchema({ schema, mocks });
-
-export default schema;
+// addMockFunctionsToSchema({ schema });
+export {schema };

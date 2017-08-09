@@ -8,14 +8,32 @@ import {
 } from 'react-apollo';
 import ChannelsList from './ChannelsList';
 
+import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
+
 
 // Your network connection
 const networkInterface = createNetworkInterface({
   uri: 'http://localhost:9000/graphql',
 });
 
+networkInterface.use([{
+  applyMiddleware(req, next) {
+    setTimeout(next, 500);
+  },
+}])
+
+
+
+const wsClient = new SubscriptionClient(`ws://localhost:9000/subscriptions`, {
+  reconnect: true,
+});
+const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
+    networkInterface,
+    wsClient,
+);
+
 const client = new ApolloClient({
-  networkInterface,
+  networkInterface: networkInterfaceWithSubscriptions
 });
 
 

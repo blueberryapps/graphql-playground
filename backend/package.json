@@ -19,7 +19,11 @@
     "express": "^4.15.3",
     "express-graphql": "^0.6.7",
     "graphql": "^0.10.5",
-    "graphql-tools": "^1.1.0"
+    "graphql-server-express": "^1.0.5",
+    "graphql-subscriptions": "^0.4.4",
+    "graphql-tools": "^1.1.0",
+    "http": "^0.0.0",
+    "subscriptions-transport-ws": "^0.8.2"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

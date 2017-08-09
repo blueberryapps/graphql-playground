@@ -18,7 +18,7 @@ type Message {
 }
 
 type Subscription {
-  messageAdded(channelId: ID!): Message
+  channelAdded: Channel
 }
 `;
 

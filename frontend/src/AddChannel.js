@@ -1,6 +1,6 @@
 import React from 'react';
 import { gql, graphql } from 'react-apollo';
-import { channelsListQuery } from './App'
+import { channelsListQuery } from './ChannelsList'
 
 const AddChannel = ({ mutate }) => {
   const handleKeyUp = (evt) => {

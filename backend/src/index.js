@@ -4,12 +4,13 @@ import graphqlHTTP from 'express-graphql';
 import { graphqlExpress } from 'apollo-server-express';
 import cors from 'cors';
 import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
+import resolvers from './data/resolvers'
 
 import typeDefs from './data/schema';
 
 
-const schema = makeExecutableSchema({ typeDefs });
-addMockFunctionsToSchema({ schema });
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+// addMockFunctionsToSchema({ schema, resorvers });
 
 const PORT = 9000;
 

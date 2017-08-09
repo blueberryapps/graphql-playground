@@ -8,8 +8,9 @@ const channels = [{
   id: 2,
   name: 'baseball',
 }];
+
 let nextId = 3;
-export const resolvers = {
+const resolvers = {
   Query: {
     channels: () => {
       return channels;
@@ -23,3 +24,5 @@ export const resolvers = {
     },
   },
 };
+
+export default resolvers;

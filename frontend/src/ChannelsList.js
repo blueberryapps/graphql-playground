@@ -33,7 +33,6 @@ export class ChannelsList extends Component {
   render() {
     const {data: {loading, error, channels = []} = {}} = this.props
 
-    console.log(channels)
     if (loading) {
         return <p>Loading ...</p>;
       }
@@ -59,7 +58,6 @@ export const channelsListQuery = gql`
        name
      }
    }
-   
  `;
 
 const channelSubscription = gql`
@@ -69,10 +67,7 @@ const channelSubscription = gql`
       id
     }
   }`
-
-
-
 export default compose(
     graphql(channelsListQuery)
-    // graphql(channelSubscription)
+    // compose is useful when you have more graphql queries
 )(ChannelsList);

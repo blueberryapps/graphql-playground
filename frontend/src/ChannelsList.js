@@ -1,54 +1,19 @@
 import React, { Component } from 'react';
-import {
-  gql,
-  graphql,
-  compose,
-} from 'react-apollo';
+// import {
+//   gql,
+//   graphql,
+//   compose,
+// } from 'react-apollo';
 import PropTypes from 'prop-types';
 import AddChannel from './AddChannel';
 
-
-export const channelsListQuery = gql`
-   query ChannelsListQuery {
-     channels {
-       id
-       name
-     }
-   }
- `;
-
-const channelSubscription = gql`
-  subscription{
-    channelAdded{
-      name,
-      id
-    }
-  }`;
-
 export class ChannelsListComponent extends Component {
   componentWillMount() {
-    this.props.data.subscribeToMore({
-      document: channelSubscription,
-      updateQuery: (prev, { subscriptionData }) => {
-        if (!subscriptionData.data) {
-          return prev;
-        }
 
-        const newChannel = subscriptionData.data.channelAdded;
-
-        if (!prev.channels.find(channel => channel.id === newChannel.id)) {
-          return {
-            ...prev,
-            channels: [...prev.channels, newChannel],
-          };
-        }
-        return prev;
-      },
-    });
   }
 
   render() {
-    const { data: { loading, error, channels = [] } = {} } = this.props;
+    const { data: { loading, error, channels = [] } = { channels: [] } } = this.props;
 
     if (loading) {
       return <p>Loading ...</p>;
@@ -69,12 +34,7 @@ export class ChannelsListComponent extends Component {
 }
 
 ChannelsListComponent.propTypes = {
-  data: PropTypes.shape({
-    subscribeToMore: PropTypes.func.isRequired,
-  }).isRequired,
+  data: PropTypes.Object,
 };
 
-export default compose(
-  graphql(channelsListQuery),
-  // compose is useful when you have more graphql queries
-)(ChannelsListComponent);
+export default ChannelsListComponent;

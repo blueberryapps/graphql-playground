@@ -33,7 +33,7 @@ const AddChannel = ({ mutate }) => {
 
 
   AddChannel.propTypes = {
-    mutate: PropTypes.function.isRequired,
+    mutate: PropTypes.func.isRequired,
   };
   return (
     <input

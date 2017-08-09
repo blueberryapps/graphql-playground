@@ -40,7 +40,7 @@ classic create-react-app base
 
 2. Connect Client
     * Create componnet ChannelsList and connect it to GraphQL
-    * Check (4. block about component)[https://dev-blog.apollodata.com/full-stack-react-graphql-tutorial-582ac8d24e3b#573b]
+    * Check [4. block about component(https://dev-blog.apollodata.com/full-stack-react-graphql-tutorial-582ac8d24e3b#573b)
     * Use simple query
 
 3. Mutations

@@ -1,5 +1,5 @@
 // src/resolvers.js
-import {PubSub, withFilter} from 'graphql-subscriptions';
+import { PubSub } from 'graphql-subscriptions';
 
 const channels = [{
   id: 1,
@@ -13,27 +13,23 @@ let nextId = 3;
 
 const pubsub = new PubSub();
 const resolvers = {
-      Query: {
-        channels: () => {
-          return channels;
-        },
-      },
-      Mutation: {
-        addChannel: (root, args) => {
-          const newChannel = {id: nextId++, name: args.name};
-          channels.push(newChannel);
-          pubsub.publish('channelAdded', {channelAdded: {...newChannel}});
-          return newChannel;
-        },
-      },
-      Subscription: {
-        channelAdded: {
-          subscribe: () => {
-            return pubsub.asyncIterator('channelAdded')
-          }
-        }
-      }
+  Query: {
+    channels: () => channels,
+  },
+  Mutation: {
+    addChannel: (root, args) => {
+      const newChannel = { id: nextId++, name: args.name }; // eslint-disable-line
+      channels.push(newChannel);
+      pubsub.publish('channelAdded', { channelAdded: { ...newChannel } });
+      return newChannel;
+    },
+  },
+  Subscription: {
+    channelAdded: {
+      subscribe: () => pubsub.asyncIterator('channelAdded'),
+    },
+  },
 
-    };
+};
 
 export default resolvers;

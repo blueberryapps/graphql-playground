@@ -5,8 +5,8 @@
 
 ### Backend
 * cd backend
-* yarn install
-* yarn serve
+* yarn
+* yarn start
 
 and play with es6 node server
 
@@ -17,5 +17,5 @@ and play with es6 node server
 classic create-react-app base
 
 * cd frontend
-* yarn install
+* yarn
 * yarn start

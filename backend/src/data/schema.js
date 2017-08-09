@@ -12,11 +12,6 @@ type Mutation {
   addChannel(name: String!): Channel
 }
 
-type Message {
-  id: ID!
-  text: String
-}
-
 type Subscription {
   channelAdded: Channel
 }

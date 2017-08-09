@@ -22,8 +22,6 @@ const resolvers = {
         addChannel: (root, args) => {
           const newChannel = {id: nextId++, name: args.name};
           channels.push(newChannel);
-          console.log('ADDING')
-
           pubsub.publish('channelAdded', {channelAdded: {...newChannel}});
           return newChannel;
         },

@@ -1,15 +1,13 @@
-import React, {Component} from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
 import {
   ApolloClient,
   ApolloProvider,
-  createNetworkInterface
+  createNetworkInterface,
 } from 'react-apollo';
+import logo from './logo.svg';
+import './App.css';
 import ChannelsList from './ChannelsList';
-
-import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
-
 
 // Your network connection
 const networkInterface = createNetworkInterface({
@@ -20,36 +18,32 @@ networkInterface.use([{
   applyMiddleware(req, next) {
     setTimeout(next, 500);
   },
-}])
+}]);
 
-
-
-const wsClient = new SubscriptionClient(`ws://localhost:9000/subscriptions`, {
+const wsClient = new SubscriptionClient('ws://localhost:9000/subscriptions', {
   reconnect: true,
 });
 const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
-    networkInterface,
-    wsClient,
+  networkInterface,
+  wsClient,
 );
 
 const client = new ApolloClient({
-  networkInterface: networkInterfaceWithSubscriptions
+  networkInterface: networkInterfaceWithSubscriptions,
 });
-
-
 
 class App extends Component {
   render() {
     return (
-        <ApolloProvider client={client}>
-          <div className="App">
-            <div className="App-header">
-              <img src={logo} className="App-logo" alt="logo"/>
-              <h2>Welcome to Apollo</h2>
-            </div>
-            <ChannelsList />
+      <ApolloProvider client={client}>
+        <div className="App">
+          <div className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <h2>Welcome to Apollo</h2>
           </div>
-        </ApolloProvider>
+          <ChannelsList />
+        </div>
+      </ApolloProvider>
     );
   }
 }

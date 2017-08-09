@@ -1,6 +1,6 @@
 import React from 'react';
 import { gql, graphql } from 'react-apollo';
-import { channelsListQuery } from './ChannelsList'
+import { channelsListQuery } from './ChannelsList';
 
 const AddChannel = ({ mutate }) => {
   const handleKeyUp = (evt) => {
@@ -17,24 +17,29 @@ const AddChannel = ({ mutate }) => {
         },
         update: (store, { data: { addChannel } }) => {
           // Read the data from the cache for this query.
-          const data = store.readQuery({query: channelsListQuery });
+          const data = store.readQuery({ query: channelsListQuery });
           // Add our channel from the mutation to the end.
           data.channels.push(addChannel);
           // Write the data back to the cache.
           store.writeQuery({ query: channelsListQuery, data });
         },
       })
-          .then( res => {
-            evt.target.value = '';
-          });
+        .then(() => {
+          evt.target.value = ''; // eslint-disable-line
+        });
     }
   };
+
+
+  AddChannel.propTypes = {
+    mutate: React.PropTypes.function.isRequired,
+  };
   return (
-      <input
-          type="text"
-          placeholder="New channel"
-          onKeyUp={handleKeyUp}
-      />
+    <input
+      type="text"
+      placeholder="New channel"
+      onKeyUp={handleKeyUp}
+    />
   );
 };
 const addChannelMutation = gql`
@@ -46,6 +51,6 @@ const addChannelMutation = gql`
   }
 `;
 const AddChannelWithMutation = graphql(
-    addChannelMutation
+  addChannelMutation,
 )(AddChannel);
 export default AddChannelWithMutation;

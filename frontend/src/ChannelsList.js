@@ -4,6 +4,7 @@ import {
   graphql,
   compose,
 } from 'react-apollo';
+import PropTypes from 'prop-types';
 import AddChannel from './AddChannel';
 
 
@@ -68,8 +69,8 @@ export class ChannelsListComponent extends Component {
 }
 
 ChannelsListComponent.propTypes = {
-  data: React.PropTypes.Shape({
-    subscribeToMore: React.PropTypes.function.isRequired,
+  data: PropTypes.shape({
+    subscribeToMore: PropTypes.func.isRequired,
   }).isRequired,
 };
 

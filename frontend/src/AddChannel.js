@@ -1,5 +1,6 @@
 import React from 'react';
 import { gql, graphql } from 'react-apollo';
+import PropTypes from 'prop-types';
 import { channelsListQuery } from './ChannelsList';
 
 const AddChannel = ({ mutate }) => {
@@ -32,7 +33,7 @@ const AddChannel = ({ mutate }) => {
 
 
   AddChannel.propTypes = {
-    mutate: React.PropTypes.function.isRequired,
+    mutate: PropTypes.function.isRequired,
   };
   return (
     <input
